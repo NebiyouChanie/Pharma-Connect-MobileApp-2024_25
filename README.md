@@ -12,7 +12,7 @@ The app connects pharmacies with users, allowing pharmacists to manage their inv
 |---------------|------------|
 | Nebiyou Chanie      | UGR/1398/15     |
 | Dagim Abate    | UGR/9640/15     |
-| Tsigemariam Zewedu  | UGR/6174/15     |
+| Tsigemariam Zewdu  | UGR/6174/15     |
 | Yetmgeta Ewnetu  | UGR/1582/15     |
 | Mikiyas Ambachew | UGR/3008/15     |
 
