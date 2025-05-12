@@ -1,12 +1,13 @@
-const pharmacyService = require("../services/pharamcyServices");
+const pharmacyService = require("../services/PharamcyServices");
 const asyncErrorHandler = require('../utils/asyncErrorHandler')
 
  
 
 // get pharmacy
 exports.getPharmacyController = asyncErrorHandler( async(req, res) => {
-    const pharmacyId = req.params.pharmacyId;
-    const pharmacy = await pharmacyService.getPharmacyById(pharmacyId);
+  console.log(req.params)
+    const pharmacyId = req.params.id;
+     const pharmacy = await pharmacyService.getPharmacyById(pharmacyId);
     res.status(200).json({
       success: true,
       data: pharmacy,
@@ -49,6 +50,28 @@ exports.getPharmaciesController = asyncErrorHandler( async (req, res) => {
       });
       
 })
+
+// get pharmacists
+exports.getPharmacistsController = asyncErrorHandler( async (req, res) => {
+      const  {id} = req.params;
+      const pharmacists = await pharmacyService.getPharmacists(id);
+      res.status(200).json({
+        success: true,
+        data: pharmacists,
+      });
+      
+})
+
+// remove pharmacists
+exports.removePharmacistController = asyncErrorHandler( async (req, res) => {
+      const  {id, pharmacistId} = req.params;
+      const pharmacist = await pharmacyService.removePharmacist(id,pharmacistId);
+      res.status(200).json({
+        success: true,
+        data: pharmacist,
+      });
+      
+})
  
  
 
@@ -56,7 +79,7 @@ exports.getPharmaciesController = asyncErrorHandler( async (req, res) => {
 
 // get inventory of a pharmacy 
 exports.getInventory = asyncErrorHandler(async (req, res) => {
-  const {pharmacyId} = req.params;
+  const pharmacyId = req.params.pharmacyId;
   const inventory = await pharmacyService.getInventory(pharmacyId);
   res.status(200).json({
     success: true,
@@ -77,11 +100,21 @@ exports.addInventoryItem = asyncErrorHandler(async (req, res) => {
 });
 
 
+// get single inventory
+exports.getInventoryItemController = asyncErrorHandler(async (req, res) => {
+  const { pharmacyId, inventoryId } = req.params;
+  const inventory = await pharmacyService.getInventoryItem(pharmacyId, inventoryId);
+  res.status(200).json({
+    success: true,
+    data: inventory,
+  });
+});
+
 // update quantity,price & expiredate
 exports.updateInventoryItem = asyncErrorHandler(async (req, res) => {
   const medicineData = req.body;
-  const { pharmacyId, medicineId } = req.params;
-  const inventory = await pharmacyService.updateInventoryItem(pharmacyId, medicineId, medicineData);
+  const { pharmacyId, inventoryId } = req.params;
+  const inventory = await pharmacyService.updateInventoryItem(pharmacyId, inventoryId, medicineData);
   res.status(200).json({
     success: true,
     data: inventory,
@@ -90,9 +123,9 @@ exports.updateInventoryItem = asyncErrorHandler(async (req, res) => {
 
 // delete medicine from inventory
 exports.deleteInventoryItem = asyncErrorHandler(async (req, res) => {
-  const { pharmacyId, medicineId } = req.params;
+  const { pharmacyId, inventoryId } = req.params;
   
-  const inventory = await pharmacyService.deleteInventoryItem(pharmacyId, medicineId);
+  const inventory = await pharmacyService.deleteInventoryItem(pharmacyId, inventoryId);
   res.status(200).json({
     success: true,
     message: "Pharmacy deleted successfully.",
