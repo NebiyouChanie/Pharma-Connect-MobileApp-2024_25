@@ -1,5 +1,6 @@
 package com.example.pharma_connect_androids.ui.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -26,10 +27,12 @@ import com.example.pharma_connect_androids.ui.features.pharmacy.PharmacistListSc
 import com.example.pharma_connect_androids.ui.features.auth.register.PharmacistRegisterScreen
 import com.example.pharma_connect_androids.ui.features.search.SearchScreen
 import com.example.pharma_connect_androids.ui.features.pharmacy.UserPharmacyDetailScreen
+import com.example.pharma_connect_androids.ui.features.admin.UpdateMedicineScreen
 
 /**
  * Defines the overall navigation structure, including Auth and Main flows.
  */
+@SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun AppNavigation(navController: NavHostController) {
     NavHost(
@@ -61,7 +64,7 @@ fun AppNavigation(navController: NavHostController) {
                         navController.navigate(Screen.Register.route)
                     },
                     onSkipLogin = {
-                         // Navigate to MainScreen, clearing Auth graph
+                        // Navigate to MainScreen, clearing Auth graph
                         navController.navigate(Screen.MainNavGraph.route) { // Keep MainNavGraph route name for navigation target
                             popUpTo(Screen.AuthNavGraph.route) { inclusive = true }
                             launchSingleTop = true
@@ -78,6 +81,7 @@ fun AppNavigation(navController: NavHostController) {
                     },
                     onNavigateToLogin = { navController.popBackStack() },
                     onNavigateToPharmacistRegister = {
+
                         navController.navigate(Screen.PharmacistRegister.createRoute(null))
                     }
                 )
@@ -147,5 +151,19 @@ fun AppNavigation(navController: NavHostController) {
                 onNavigateBack = { navController.popBackStack() }
             )
         }
+
+        // Add the composable route for UpdateMedicineScreen
+        composable(
+            route = Screen.AdminUpdateMedicine.route, // "admin_update_medicine_screen/{medicineId}"
+            arguments = listOf(navArgument("medicineId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            // Extract the medicineId from the arguments
+            val medicineId = backStackEntry.arguments?.getString("medicineId")
+            // ViewModel will get medicineId from SavedStateHandle
+            UpdateMedicineScreen(
+                medicineId = medicineId, // Pass the extracted ID here
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
     }
-} 
+}

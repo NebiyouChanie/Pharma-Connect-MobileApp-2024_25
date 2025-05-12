@@ -24,7 +24,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.SerializationException
 
 // Consider making this an interface and creating an Impl class for better testability
-// ... existing code ... 
+// ... existing code ...
 
 @Singleton
 class AuthRepository @Inject constructor(
@@ -64,6 +64,7 @@ class AuthRepository @Inject constructor(
                     emit(Resource.Error(errorMsg))
                 }
 
+
             } else {
                 val errorBody = response.errorBody()?.string()
                 Log.e(TAG, "Login failed: Code=${response.code()}, Message=${response.message()}, ErrorBody=$errorBody")
@@ -93,12 +94,12 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    suspend fun registerUser(registerRequest: RegisterRequest): Flow<Resource<RegisterResponse>> = flow {
+    suspend fun registerUser(registerRequest: RegisterRequest): Flow<Resource<Unit>> = flow {
         emit(Resource.Loading())
         try {
             val response = authApiService.registerUser(registerRequest)
-            if (response.isSuccessful && response.body() != null) {
-                emit(Resource.Success(response.body()!!))
+            if (response.isSuccessful) {
+                emit(Resource.Success(Unit))
             } else {
                 val errorBody = response.errorBody()?.string()
                 val parsedErrorMsg = try {
@@ -125,15 +126,16 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    suspend fun registerPharmacist(registerRequest: PharmacistRegisterRequest): Flow<Resource<RegisterResponse>> = flow {
+
+    suspend fun registerPharmacist(registerRequest: PharmacistRegisterRequest): Flow<Resource<Unit>> = flow {
         emit(Resource.Loading())
         Log.d(TAG, "Attempting pharmacist registration for: ${registerRequest.email}")
         try {
             val response = authApiService.registerPharmacist(registerRequest)
             Log.d(TAG, "Pharmacist registration response code: ${response.code()}")
-            if (response.isSuccessful && response.body() != null) {
+            if (response.isSuccessful) {
                 Log.d(TAG, "Pharmacist registration successful for: ${registerRequest.email}")
-                emit(Resource.Success(response.body()!!))
+                emit(Resource.Success(Unit))
             } else {
                 val errorBody = response.errorBody()?.string()
                 Log.e(TAG, "Pharmacist registration failed: Code=${response.code()}, Message=${response.message()}, ErrorBody=$errorBody")
@@ -147,7 +149,7 @@ class AuthRepository @Inject constructor(
                             null
                         }
                     }
-                } catch (e: Exception) { 
+                } catch (e: Exception) {
                     Log.w(TAG, "Failed to parse error body as JSON: $errorBody", e)
                     null
                 }
@@ -170,4 +172,4 @@ class AuthRepository @Inject constructor(
             }
         }
     }
-} 
+}

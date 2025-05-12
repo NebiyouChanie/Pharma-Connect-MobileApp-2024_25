@@ -19,13 +19,13 @@ interface AuthApiService {
     @POST("api/v1/users/signUp") // Corrected endpoint
     suspend fun registerUser(
         @Body registerRequest: RegisterRequest
-    ): Response<RegisterResponse>
+    ): Response<Unit>
 
     // Endpoint for Pharmacist Registration (uses the same backend route but different request body)
     @POST("api/v1/users/signUp")
     suspend fun registerPharmacist(
         @Body registerRequest: PharmacistRegisterRequest // Use PharmacistRegisterRequest model
-    ): Response<RegisterResponse>
+    ): Response<Unit>
 
     // Add other auth-related endpoints here (e.g., forgot password, refresh token)
-} 
+}
