@@ -10,5 +10,7 @@ data class RegisterRequest(
     val email: String,
     val password: String,
     val confirmPassword: String,
-
+    // confirmPassword is usually handled in ViewModel/UI, not sent in request body
+    // role is omitted (defaults to 'user' on backend)
+    // pharmacyId is omitted
 ) 

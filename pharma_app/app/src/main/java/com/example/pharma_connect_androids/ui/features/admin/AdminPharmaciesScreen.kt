@@ -155,4 +155,4 @@ fun PharmacyListItem(
     }
 }
 
-// TODO: Add Previews for AdminPharmaciesScreen (Success, Empty, Error)
+// TODO: Add Previews for AdminPharmaciesScreen (Success, Empty, Error) 

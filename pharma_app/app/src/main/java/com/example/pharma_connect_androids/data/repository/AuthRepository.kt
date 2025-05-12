@@ -24,7 +24,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.SerializationException
 
 // Consider making this an interface and creating an Impl class for better testability
-// ... existing code ...
+// ... existing code ... 
 
 @Singleton
 class AuthRepository @Inject constructor(
@@ -63,7 +63,6 @@ class AuthRepository @Inject constructor(
                     Log.e(TAG, "Login failed: $errorMsg")
                     emit(Resource.Error(errorMsg))
                 }
-
 
             } else {
                 val errorBody = response.errorBody()?.string()
@@ -126,7 +125,6 @@ class AuthRepository @Inject constructor(
         }
     }
 
-
     suspend fun registerPharmacist(registerRequest: PharmacistRegisterRequest): Flow<Resource<Unit>> = flow {
         emit(Resource.Loading())
         Log.d(TAG, "Attempting pharmacist registration for: ${registerRequest.email}")
@@ -149,7 +147,7 @@ class AuthRepository @Inject constructor(
                             null
                         }
                     }
-                } catch (e: Exception) {
+                } catch (e: Exception) { 
                     Log.w(TAG, "Failed to parse error body as JSON: $errorBody", e)
                     null
                 }
@@ -172,4 +170,4 @@ class AuthRepository @Inject constructor(
             }
         }
     }
-}
+} 
