@@ -104,7 +104,7 @@ class JoinPharmacyViewModel @Inject constructor(
                             licenseNumber = pharmacy.licenseNumber ?: "",
                             // Assume 'image' from Pharmacy model maps to pharmacyImage field
                             // License image might need separate handling/field if distinct
-                            pharmacyImage = pharmacy.image ?: "", 
+                            pharmacyImage = pharmacy.image ?: "https://pbs.twimg.com/media/DTMojGjWkAEg8R2.jpg",
                             licenseImage = pharmacy.image ?: "", // Placeholder: Using same image, adjust if needed
                             ownerId = pharmacy.ownerId, // Use fetched owner ID
                             isLoadingDetails = false,
@@ -193,7 +193,7 @@ class JoinPharmacyViewModel @Inject constructor(
             }
             // TODO: Implement real image upload and URL retrieval before creating request
             val licenseImageUrl = "PLACEHOLDER_LICENSE_URL"
-            val pharmacyImageUrl = "PLACEHOLDER_PHARMACY_URL"
+            val pharmacyImageUrl = "https://pbs.twimg.com/media/DTMojGjWkAEg8R2.jpg"
              if (currentState.ownerId.isNullOrBlank()) {
                   _state.value = currentState.copy(isLoading = false, submissionError = "User ID not found. Please log in again.")
                   return@launch

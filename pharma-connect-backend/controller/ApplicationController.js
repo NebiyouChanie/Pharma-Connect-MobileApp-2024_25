@@ -50,10 +50,10 @@ exports.updateApplicationStatusController = asyncErrorHandler(async (req, res) =
       );
   res.status(200).json({
     success: true,
-    
-   });
+    message:  `pharmacy ${response.application.status}`,
+    pharmacy: response.pharmacy,
+  });
 })
-
 
 //delete application
 exports.deleteApplicationController = asyncErrorHandler(async (req, res) => {
@@ -67,7 +67,6 @@ exports.deleteApplicationController = asyncErrorHandler(async (req, res) => {
     deletedApplication: {},
   });
 })
-
 
 // get applications
 exports.getApplicationsController = asyncErrorHandler(async (req, res) => {

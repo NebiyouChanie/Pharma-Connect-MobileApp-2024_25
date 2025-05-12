@@ -21,10 +21,10 @@ router.delete("/:id", pharmacyController.deletePharmacyController);
 router.get("/", pharmacyController.getPharmaciesController);
 
 // get  pharmacists ( )
-router.get("/:id/pharmacists", pharmacyController.getPharmaciesController);
+router.get("/:id/pharmacists", pharmacyController.getPharmacistsController);
 
 // remove  pharmacists ( )
-router.patch("/:id/pharmacists/:pharmacistId", pharmacyController.getPharmaciesController);
+router.patch("/:id/pharmacists/:pharmacistId", pharmacyController.removePharmacistController);
 
 
 /**manage inventory routes */

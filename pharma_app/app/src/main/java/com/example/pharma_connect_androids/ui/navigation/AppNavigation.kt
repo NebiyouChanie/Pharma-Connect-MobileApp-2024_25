@@ -1,5 +1,6 @@
 package com.example.pharma_connect_androids.ui.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -31,6 +32,7 @@ import com.example.pharma_connect_androids.ui.features.admin.UpdateMedicineScree
 /**
  * Defines the overall navigation structure, including Auth and Main flows.
  */
+@SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun AppNavigation(navController: NavHostController) {
     NavHost(
@@ -62,7 +64,7 @@ fun AppNavigation(navController: NavHostController) {
                         navController.navigate(Screen.Register.route)
                     },
                     onSkipLogin = {
-                         // Navigate to MainScreen, clearing Auth graph
+                        // Navigate to MainScreen, clearing Auth graph
                         navController.navigate(Screen.MainNavGraph.route) { // Keep MainNavGraph route name for navigation target
                             popUpTo(Screen.AuthNavGraph.route) { inclusive = true }
                             launchSingleTop = true
@@ -79,6 +81,7 @@ fun AppNavigation(navController: NavHostController) {
                     },
                     onNavigateToLogin = { navController.popBackStack() },
                     onNavigateToPharmacistRegister = {
+
                         navController.navigate(Screen.PharmacistRegister.createRoute(null))
                     }
                 )
@@ -163,4 +166,4 @@ fun AppNavigation(navController: NavHostController) {
             )
         }
     }
-} 
+}

@@ -56,11 +56,9 @@ const ApplicationSchema = new mongoose.Schema({
     },
   status: {
     type: String,
-    enum: ["Pending", "Approved", "Suspended", "Closed", "Rejected"],
+    enum: ["Pending", "Approved", "Suspended", "Closed"],
     default: "Pending",
   },
-
-  
   latitude: {
     type: Number,
     required: [true, "Location latitude is required"],

@@ -15,14 +15,14 @@ const owner = await User.findById(applicationData.ownerId)
 
   //check application data
   const existingApplication = await Application.findOne({
-    $or: [
-      { email: applicationData.email },
-      { address: applicationData.address } 
-    ]
-  });
+    latitude: applicationData.latitude,  
+    longitude: applicationData.longitude,  
+    licenseNumber: applicationData.licenseNumber,  
+    email: applicationData.email,  
+  })
 
   if (existingApplication) {
-    throw new CustomError('An application with this pharmacy address or email already exists.', 409);
+    throw new CustomError("An application with this pharmacy address or email alread exist.", 404)
   }
   
   const existingPharmacy = await Pharmacy.findOne({
@@ -77,13 +77,11 @@ exports.updateApplication = async(applicationId, data) => {
 
 // update application status
 exports.updateApplicationStatus = async(applicationId, data) => {
-console.log("🚀 ~ exports.updateApplicationStatus=async ~ data:", data)
 
   const application = await Application.findByIdAndUpdate(applicationId, data, {
     new: true,
     runValidators: true,
   });
-  console.log("🚀 ~ exports.updateApplicationStatus=async ~ application:", application)
 
   if (!application) {
     throw new CustomError("Application not found", 404);
